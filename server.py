@@ -65,7 +65,7 @@ asyncio.run(main())
             stderr=asyncio.subprocess.PIPE,
             env={**os.environ, "REMARKABLE_TOKEN": REMARKABLE_TOKEN}
         )
-        stdout, stderr = await proc.communicate(timeout=30)
+        stdout, stderr = await asyncio.wait_for(proc.communicate(), timeout=30)
         raw = stdout.decode().strip()
         if raw:
             return json.loads(raw)
